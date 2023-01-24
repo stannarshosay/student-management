@@ -3,6 +3,7 @@ package com.quest.student;
 import java.util.Scanner;
 
 import com.quest.student.models.Student;
+import com.quest.student.repos.StudentArrayListRepository;
 import com.quest.student.repos.StudentArrayRepository;
 
 public class StudentApplication {
@@ -12,9 +13,11 @@ public class StudentApplication {
 		Scanner scanner = new Scanner(System.in);
 		int option;
 		
-		StudentArrayRepository repo = new StudentArrayRepository();
+//		StudentArrayRepository repo = new StudentArrayRepository();
+		StudentArrayListRepository repo = new StudentArrayListRepository();
 
-		if(repo instanceof StudentArrayRepository) {
+		//StudentArrayListRepository.class
+		if(repo.getClass().equals(StudentArrayRepository.class)) {
 			
 			System.out.println("Student Management\n=================");
 			System.out.println("Enter the number of records");	
@@ -38,7 +41,7 @@ public class StudentApplication {
 			switch(option) {
 				case 1:{
 					
-					if(repo instanceof StudentArrayRepository) {
+					if(repo.getClass().equals(StudentArrayRepository.class)) {
 						
 						if(repo.getPosition() > repo.getLength()) {
 							System.out.println("Oops! No more records can be added (Length : "+repo.getLength()+")");
