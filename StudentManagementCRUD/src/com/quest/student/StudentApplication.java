@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.quest.student.models.Student;
 import com.quest.student.repos.StudentArrayListRepository;
 import com.quest.student.repos.StudentArrayRepository;
+import com.quest.student.repos.StudentJdbcRepository;
 
 public class StudentApplication {
 
@@ -14,9 +15,11 @@ public class StudentApplication {
 		int option;
 		
 //		StudentArrayRepository repo = new StudentArrayRepository();
-		StudentArrayListRepository repo = new StudentArrayListRepository();
+//		StudentArrayListRepository repo = new StudentArrayListRepository();
+		StudentJdbcRepository repo = new StudentJdbcRepository();
+		
 
-		//StudentArrayListRepository.class
+		//repo.getClass() will give StudentArrayListRepository.class (based on class it was created)
 		if(repo.getClass().equals(StudentArrayRepository.class)) {
 			
 			System.out.println("Student Management\n=================");
@@ -54,11 +57,18 @@ public class StudentApplication {
 					
 					System.out.println("Enter Name : ");
 					String name = scanner.nextLine();
-					System.out.println("Enter Id : ");
-					int id = scanner.nextInt();
 					
-					//skip line after nextInt
-					scanner.nextLine();
+					int id = 0;
+					
+					if(!repo.getClass().equals(StudentJdbcRepository.class)) {
+						
+						System.out.println("Enter Id : ");
+						id = scanner.nextInt();
+						
+						//skip line after nextInt
+						scanner.nextLine();
+						
+					}
 					
 					System.out.println("Enter Address : ");
 					String address = scanner.nextLine();
