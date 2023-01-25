@@ -206,14 +206,45 @@ public class StudentJdbcRepository implements CrudRepository {
 
 	// TODO NOT USED HERE
 	public void setLength(int length) {
+		System.out.println("Not Applicable in JDBC Scenario");
 	}
 
 	public int getPosition() {
+		System.out.println("Not Applicable in JDBC Scenario");
 		return -1;
 	}
 
 	public int getLength() {
-		return 0;
+		
+		int length = 0;
+
+		String sql = "SELECT COUNT(*) as no_of_records FROM students_application_tb";
+
+		try {
+
+			Connection connection = getConnection();
+
+			PreparedStatement ps = connection.prepareStatement(sql);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+
+				length = rs.getInt("no_of_records");
+
+			}
+
+			rs.close();
+			ps.close();
+			connection.close();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return length;
 	}
 
 }
